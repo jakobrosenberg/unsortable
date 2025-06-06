@@ -1,6 +1,6 @@
 <script>
   import { data } from './data.js'
-  import { Unsortable } from 'unsortable'
+  import { Unsortable } from 'unsortable/svelte'
 
   let items = $state(data)
   const { addDraggable } = new Unsortable()
