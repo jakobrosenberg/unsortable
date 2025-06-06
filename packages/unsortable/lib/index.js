@@ -41,12 +41,15 @@ export class Unsortable {
 
   _onDragOver(event) {
     if (!event.operation.target) return
+    console.debug('Unsortable: drag over event', event)
     event.operation.source.element['style'].display = 'block'
+
     if (event.operation.target.data.isContainer) return this.handleMove(event)
     else return this.handleSort(event)
   }
 
   handleMove(event) {
+    console.debug('Unsortable: handling move', event, this.manager)
     const source = getNearestParentElementFromMap(event.operation.source.element, elemMap)
 
     const sourceItem = event.operation.source.data.item.get()
@@ -65,6 +68,7 @@ export class Unsortable {
   }
 
   handleSort(event) {
+    console.debug('Unsortable: handling sort', event)
     const source = getNearestParentElementFromMap(event.operation.source.element, elemMap)
     const target = getNearestParentElementFromMap(event.operation.target.element, elemMap)
 
@@ -73,11 +77,16 @@ export class Unsortable {
     const targetItem = event.operation.target.data.item.get()
     const targetItems = target.items.get()
 
-    if (sourceItem === targetItem) return
+    if (sourceItem === targetItem) {
+      console.debug('Unsortable: source item is the same as target item, no action taken')
+      return
+    }
     const isSameList = sourceItems === targetItems
 
     const oldIndex = sourceItems.indexOf(sourceItem)
     const newIndex = targetItems.indexOf(targetItem)
+
+    console.debug('Unsortable: oldIndex', oldIndex, 'newIndex', newIndex)
 
     if (isSameList) {
       source.items.set([...move([...sourceItems], oldIndex, newIndex)])
@@ -96,6 +105,7 @@ export class Unsortable {
 
   addDraggable(element, options) {
     options.item = toItemAccessor(options.item)
+    console.debug('unsortable: draggable options', options)
     const draggable = new Draggable(
       {
         ...options,
@@ -141,6 +151,7 @@ export class Unsortable {
       },
       this.manager,
     )
+
     return {
       droppable,
       destroy() {

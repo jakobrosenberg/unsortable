@@ -6,6 +6,6 @@
 </script>
 
 <Nav></Nav>
-<div class="min-h-screen bg-base-300 flex flex-col">
+<div class="min-h-screen bg-base-200 flex flex-col  pt-16">
   <slot />
 </div>

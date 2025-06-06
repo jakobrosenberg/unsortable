@@ -19,7 +19,7 @@
   {#each items as item, index (item)}
     <div
       animate:flip={{ duration: 300 }}
-      class="card bg-base-100 shadow-xl p-4"
+      class="card bg-base-100 shadow-xl p-4 w-100"
       use:addDraggable={{
         item: { get: () => item },
         index,
@@ -37,7 +37,7 @@
       >
         <p class="text-sm">Drag items here</p>
         <div class="flex flex-wrap gap-4">
-          {#each item.children as child, index (child.id)}
+          {#each item.children as child (child.id)}
             <div
               animate:flip={{ duration: 300 }}
               class="my-card"
