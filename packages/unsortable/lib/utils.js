@@ -25,3 +25,15 @@ export const hasValue = (obj, target) => {
   if (obj && typeof obj === 'object') return Object.values(obj).some((v) => hasValue(v, target))
   return false
 }
+
+
+export const getNearestParentElementFromMap = (element, map) => {
+  let parent = element.parentElement
+  while (parent) {
+    if (map.has(parent)) {
+      return map.get(parent)
+    }
+    parent = parent.parentElement
+  }
+  return null
+}
