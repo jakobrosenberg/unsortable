@@ -7,7 +7,7 @@
   let heros = $state([
     {
       title: 'Unsortable',
-      subtitle: 'Headless drag-and-drop sorting with full state control. No DOM mutations.',
+      subtitle: 'Headless drag-and-drop sorting with full state control. No DOM mutations. Powered by dnd-kit.',
       button: 'Get Started',
     },
   ])
@@ -60,62 +60,107 @@
   const { addDraggable, addDroppable } = new Unsortable()
 </script>
 
-<section class="min-h-screen bg-base-200 flex items-center justify-center">
+<section class="min-h-200 bg-base-200 flex items-center justify-center">
   <div class="text-center max-w-xl px-4">
     <h1 class="text-5xl font-bold">Unsortable</h1>
-    <p class="py-6 text-lg">Headless drag-and-drop sorting with full state control. No DOM mutations.</p>
-    <button class="btn btn-primary">Get Started</button>
+    <p class="py-6 text-lg">
+      Headless drag-and-drop sorting with full state control. No DOM mutations. Powered by <code>dnd-kit</code>.
+    </p>
+    <button class="btn btn-primary">Open demo</button>
   </div>
 </section>
 
 <!-- Features / Columns -->
-<section
-  class="py-16 bg-base-100"
-  use:addDroppable={{ items: { get: () => features, set: (r) => (features = r) }, accepts: ['section'] }}
+<div
+  class="bg-base-100 py-16 px-4"
+  use:addDroppable={{ items: { get: () => features, set: (r) => (features = r) }, accept: ['section'] }}
 >
   {#each features as feature (feature)}
-    <div use:addDraggable={{ item: { get: () => feature } }} class="py-1 bg-red-100">
+    <section animate:flip={{ duration: 200 }} class="relative cursor-move">
       <div
-        class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4"
-        use:addDroppable={{
-          items: { get: () => feature.points, set: (r) => (feature.points = r), accepts: ['point'] },
-        }}
+        class="py-10 hover:outline-2 outline-red-200 rounded-xl"
+        use:addDraggable={{ item: { get: () => feature }, type: 'section', accept: ['section'] }}
       >
-        {#each feature.points as point (point)}
-          <div
-            class="card shadow-md bg-base-200 p-6 mb-4"
-            use:addDraggable={{ item: { get: () => point }, type: 'foo' }}
-          >
-            <h2 class="card-title">{point.title}</h2>
-            <p>{point.description}</p>
-          </div>
-        {/each}
+        <h1 class="text-center text-3xl pb-10">{feature.title}</h1>
+        <div
+          class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4"
+          use:addDroppable={{
+            items: { get: () => feature.points, set: (r) => (feature.points = r) },
+            accept: ['point'],
+          }}
+        >
+          {#each feature.points as point (point)}
+            <div
+              animate:flip={{ duration: 200 }}
+              class="transition-all card shadow-md bg-base-200 p-6 mb-4 hover:shadow-lg"
+              use:addDraggable={{ item: { get: () => point }, type: 'point', accept: ['point'] }}
+            >
+              <h2 class="card-title">{point.title}</h2>
+              <p>{point.description}</p>
+            </div>
+          {/each}
+        </div>
       </div>
+    </section>
+  {:else}
+    <div class="flex items-center justify-center h-40 text-xl font-semibold opacity-40 border rounded-2xl">
+      Drag a section here here
     </div>
   {/each}
-</section>
+</div>
 
-<!-- Bullet Points
-<section class="py-16 bg-base-200">
-  <div class="max-w-3xl mx-auto px-4">
-    <h2 class="text-3xl font-bold mb-6">Why choose Unsortable?</h2>
-    <ul class="list-disc list-inside space-y-2 text-lg">
-      <li>Minimal, headless core — no DOM assumptions</li>
-      <li>Supports any frontend framework</li>
-      <li>Clean API with full dnd-kit compatibility</li>
-      <li>Designed for deeply nested structures</li>
-    </ul>
+<div class="py-16 bg-base-200">
+  <div
+    class="min-h-100 flex items-center justify-center gap-8"
+    use:addDroppable={{ items: { get: () => benefits, set: (r) => (benefits = r) }, accept: ['section'] }}
+  >
+    {#each benefits as benefit (benefit)}
+      <section
+        class="py-10 hover:outline-2 outline-red-200 rounded-xl cursor-move"
+        animate:flip={{ duration: 200 }}
+        use:addDraggable={{ item: { get: () => benefit }, type: 'section', accept: ['section'] }}
+      >
+        <div class="max-w-3xl mx-auto px-4">
+          <h2 class="text-3xl font-bold mb-6">{benefit.title}</h2>
+          <div
+            class="list-disc list-inside space-y-2 text-lg"
+            use:addDroppable={{
+              items: { get: () => benefit.points, set: (r) => (benefit.points = r) },
+              accept: ['point'],
+            }}
+          >
+            {#each benefit.points as point (point)}
+              <div
+                animate:flip={{ duration: 200 }}
+                class="text-base-content/70 hover:text-base-content/100"
+                use:addDraggable={{ item: { get: () => point }, type: 'point', accept: ['point'] }}
+              >
+                <strong>{point.title}:</strong>
+                {point.description}
+              </div>
+            {/each}
+          </div>
+        </div>
+      </section>
+    {:else}
+      <div class="flex w-full items-center justify-center h-40 text-xl font-semibold opacity-40 border rounded-2xl">
+        Drag a section here here
+      </div>
+    {/each}
   </div>
-</section>
+</div>
 
-<div class="min-h-100 w-full bg-base-200" use:addDroppable={{ items: { get: () => heros, set: (r) => (heros = r) } }}>
+<!-- <section
+  class="min-h-100 w-full bg-base-200"
+  use:addDroppable={{ items: { get: () => heros, set: (r) => (heros = r) } }}
+>
   {#each heros as item (item)}
     <div use:addDraggable={{ item: { get: () => item } }}>
       <h1 class="text-5xl">{item.name}</h1>
       <p>{item.description}</p>
     </div>
   {/each}
-</div> -->
+</section> -->
 
 <!-- <div
   class="min-h-100 w-full flex flex-col items-center gap-8"
