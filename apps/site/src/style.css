@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+/* @plugin "@tailwindcss/typography"; */
+@plugin "daisyui" {
+  themes: all;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer components {
+  .my-card {
+    @apply rounded-xl shadow-lg px-8 py-4 bg-base-100 cursor-grab;
+  }
+}

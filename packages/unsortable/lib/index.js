@@ -15,7 +15,7 @@ const defaultOptions = {
 
 export class Unsortable {
   /**
-   * @param {UnsortableOptions} options - Configuration options for Unsortable.
+   * @param {UnsortableOptions=} options - Configuration options for Unsortable.
    */
   constructor(options) {
     this.options = { ...defaultOptions, ...options }

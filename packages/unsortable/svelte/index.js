@@ -15,7 +15,7 @@ const defaultOptions = {
 
 class UnsortableSvelte extends Unsortable {
   /**
-   * @param {UnsortableSvelteOptions} options - Configuration options for Unsortable.
+   * @param {UnsortableSvelteOptions=} options - Configuration options for Unsortable.
    */
   constructor(options) {
     super({ ...defaultOptions, ...options })

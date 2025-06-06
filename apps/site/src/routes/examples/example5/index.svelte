@@ -1,25 +1,41 @@
 <script>
+  import { flip } from 'svelte/animate'
   import { data } from './data.js'
-  import { Unsortable } from 'unsortable/svelte'
+
+  import { Sortier } from '../../sortier.js'
 
   let items = $state(data)
-  const { addDraggable } = new Unsortable()
+
+  const { addDraggable } = new Sortier()
 </script>
 
 <div class="container">
   {#each items as item, index (item)}
     <div
-      class="item"
+      animate:flip={{ duration: 100 }}
+      class="item {item.name}"
       use:addDraggable={{ getItem: () => item, getItems: () => items, setItems: (_items) => (items = _items), index }}
     >
       <h2>{item.name}</h2>
+      <div class="children container">
+        {#each item.children as child, index (child.id)}
+          <div
+            class="child-item {child.name}"
+            use:addDraggable={{
+              getItem: () => child,
+              getItems: () => item.children,
+              setItems: (items) => (item.children = items),
+            }}
+          >
+            <h3>{child.name}</h3>
+          </div>
+        {/each}
+      </div>
     </div>
   {/each}
 </div>
 
-<pre>
-  {JSON.stringify(items, null, 2)}
-</pre>
+{JSON.stringify(items, null, 2)}
 
 <style>
   .container {
