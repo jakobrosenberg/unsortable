@@ -10,19 +10,18 @@
 </script>
 
 <div
-  class="flex flex-wrap gap-8 z-10 mx-20"
+  class="flex-list flex-wrap mx-20"
   use:addDroppable={{
     accept: ['top'],
-    getItems: () => items,
-    setItems: (i) => (items = i),
+    items: { get: () => items, set: (r) => (items = r) },
   }}
 >
   {#each items as item, index (item)}
     <div
-      animate:flip={{ duration: 100 }}
+      animate:flip={{ duration: 300 }}
       class="card bg-base-100 shadow-xl p-4"
       use:addDraggable={{
-        getItem: () => item,
+        item: { get: () => item },
         index,
         accept: ['top'],
         type: 'top',
@@ -33,14 +32,17 @@
         class="shadow-inner bg-base-200 p-8 mt-4 flex flex-col gap-4"
         use:addDroppable={{
           accept: ['bottom'],
-          getItems: () => item.children,
-          setItems: (children) => (item.children = children),
+          items: { get: () => item.children, set: (r) => (item.children = r) },
         }}
       >
         <p class="text-sm">Drag items here</p>
         <div class="flex flex-wrap gap-4">
           {#each item.children as child, index (child.id)}
-            <div class="my-card" use:addDraggable={{ getItem: () => child, accept: ['bottom'], type: 'bottom' }}>
+            <div
+              animate:flip={{ duration: 300 }}
+              class="my-card"
+              use:addDraggable={{ item: { get: () => child }, accept: ['bottom'], type: 'bottom' }}
+            >
               <h3>{child.name}</h3>
             </div>
           {/each}

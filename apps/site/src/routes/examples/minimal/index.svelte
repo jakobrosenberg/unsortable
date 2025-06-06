@@ -15,12 +15,9 @@
   const { addDraggable, addDroppable } = new Unsortable({})
 </script>
 
-<div
-  class="flex gap-8 z-10"
-  use:addDroppable={{ getItems: () => items, setItems: (_items) => (items = _items) }}
->
+<div class="flex-list" use:addDroppable={{ items }}>
   {#each items as item (item)}
-    <div class="my-card" use:addDraggable={{ getItem: () => item }}>
+    <div class="my-card" use:addDraggable={{ item }}>
       <h2>{item.name}</h2>
     </div>
   {/each}

@@ -1,5 +1,5 @@
 import { DragDropManager, Draggable, Droppable } from '@dnd-kit/dom'
-import { getNearestParentElementFromMap, hasValue, move } from './utils'
+import { getNearestParentElementFromMap, hasValue, move, toArrayAccessors, toItemAccessor } from './utils'
 
 /**
  * @typedef {Object} UnsortableOptions
@@ -49,14 +49,12 @@ export class Unsortable {
   handleMove(event) {
     const source = getNearestParentElementFromMap(event.operation.source.element, elemMap)
 
-    const sourceItem = event.operation.source.data.getItem()
-    // const sourceItems = event.operation.source.data.getItems()
-    // const setSourceItems = event.operation.source.data.setItems
-    const sourceItems = source.getItems()
-    const setSourceItems = source.setItems
+    const sourceItem = event.operation.source.data.item.get()
+    const sourceItems = source.items.get()
+    const setSourceItems = source.items.set
 
-    const targetItems = event.operation.target.data.getItems()
-    const setTargetItems = event.operation.target.data.setItems
+    const targetItems = event.operation.target.data.items.get()
+    const setTargetItems = event.operation.target.data.items.set
 
     const isAlreadyInTargetItems = targetItems.includes(sourceItem)
     if (isAlreadyInTargetItems) return
@@ -70,10 +68,10 @@ export class Unsortable {
     const source = getNearestParentElementFromMap(event.operation.source.element, elemMap)
     const target = getNearestParentElementFromMap(event.operation.target.element, elemMap)
 
-    const sourceItem = event.operation.source.data.getItem()
-    const sourceItems = source.getItems()
-    const targetItem = event.operation.target.data.getItem()
-    const targetItems = target.getItems()
+    const sourceItem = event.operation.source.data.item.get()
+    const sourceItems = source.items.get()
+    const targetItem = event.operation.target.data.item.get()
+    const targetItems = target.items.get()
 
     if (sourceItem === targetItem) return
     const isSameList = sourceItems === targetItems
@@ -82,26 +80,27 @@ export class Unsortable {
     const newIndex = targetItems.indexOf(targetItem)
 
     if (isSameList) {
-      source.setItems([...move([...sourceItems], oldIndex, newIndex)])
+      source.items.set([...move([...sourceItems], oldIndex, newIndex)])
       return
     }
 
     // If the items are in different lists, we need to remove the item from the old list and add it to the new list
     // check we're not moving the item into its own child
     if (newIndex !== -1 && !hasValue(sourceItem, targetItems)) {
-      source.setItems(sourceItems.filter((item) => item !== sourceItem))
+      source.items.set(sourceItems.filter((item) => item !== sourceItem))
       const _targetItems = [...targetItems]
       _targetItems.splice(newIndex, 0, sourceItem)
-      target.setItems(_targetItems)
+      target.items.set(_targetItems)
     }
   }
 
   addDraggable(element, options) {
+    options.item = toItemAccessor(options.item)
     const draggable = new Draggable(
       {
         ...options,
         ...options?.draggable,
-        id: options.getItem(),
+        id: options.item.get(),
         element,
         data: options,
       },
@@ -112,7 +111,7 @@ export class Unsortable {
       {
         ...options,
         ...options?.droppable,
-        id: options.getItem(),
+        id: options.item.get(),
         element,
         data: { ...options, isContainer: false },
       },
@@ -129,12 +128,14 @@ export class Unsortable {
   }
 
   addDroppable(element, options) {
+    options.items = toArrayAccessors(options.items)
+
     elemMap.set(element, options)
     const droppable = new Droppable(
       {
         ...options,
         ...options?.droppable,
-        id: options.getItems(),
+        id: options.items.get(),
         element,
         data: { ...options, isContainer: true },
       },

@@ -12,4 +12,7 @@ html {
   .my-card {
     @apply rounded-xl shadow-lg px-8 py-4 bg-base-100 cursor-grab;
   }
+  .flex-list {
+    @apply flex gap-8 z-10
+  }
 }
