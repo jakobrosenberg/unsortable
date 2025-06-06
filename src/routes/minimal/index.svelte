@@ -13,24 +13,10 @@
   {#each items as item, index (item)}
     <div
       animate:flip={{ duration: 100 }}
-      class="item {item.name}"
+      class="item"
       use:addDraggable={{ getItem: () => item, getItems: () => items, setItems: (_items) => (items = _items), index }}
     >
       <h2>{item.name}</h2>
-      <div class="children container">
-        {#each item.children as child, index (child.id)}
-          <div
-            class="child-item {child.name}"
-            use:addDraggable={{
-              getItem: () => child,
-              getItems: () => item.children,
-              setItems: (items) => (item.children = items),
-            }}
-          >
-            <h3>{child.name}</h3>
-          </div>
-        {/each}
-      </div>
     </div>
   {/each}
 </div>
