@@ -13,7 +13,7 @@
 {/if}
 
 <div class="fixed bottom-6 right-10 flex gap-8">
-  <a href={sourceUrl} class="link">Source</a>
+  <a href={sourceUrl} class="link" target="_blank">Source</a>
   <label class="label">
     <input type="checkbox" bind:checked={show} class="toggle" />
     Show JSON
