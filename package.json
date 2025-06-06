@@ -1,20 +1,18 @@
 {
-  "name": "starter",
-  "type": "module",
+  "name": "sortie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "vite build",
-    "preview": "vite preview",
-    "dev": "vite"
+    "dev": "pnpm --filter unsortable-site dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "@roxi/routify": "^3.0.0-next.245",
-    "@sveltejs/vite-plugin-svelte": "^5.0.0",
-    "svelte": "^5.0.0",
-    "vite": "^6.0.0"
-  },
-  "dependencies": {
-    "@dnd-kit/dom": "^0.1.18",
-    "@shopify/draggable": "^1.1.4",
-    "interactjs": "^1.10.27"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.15.1",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
 }

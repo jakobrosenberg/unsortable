@@ -1,0 +1,16 @@
+{
+  "name": "unsortable-site",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "@roxi/routify": "^3.0.0-next.245",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "svelte": "^5.0.0",
+    "vite": "^6.0.0",
+    "unsortable": "workspace:*"
+  }
+}

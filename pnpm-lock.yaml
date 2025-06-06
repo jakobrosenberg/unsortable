@@ -6,17 +6,9 @@ settings:
 
 importers:
 
-  .:
-    dependencies:
-      '@dnd-kit/dom':
-        specifier: ^0.1.18
-        version: 0.1.18
-      '@shopify/draggable':
-        specifier: ^1.1.4
-        version: 1.1.4
-      interactjs:
-        specifier: ^1.10.27
-        version: 1.10.27
+  .: {}
+
+  apps/site:
     devDependencies:
       '@roxi/routify':
         specifier: ^3.0.0-next.245
@@ -27,9 +19,18 @@ importers:
       svelte:
         specifier: ^5.0.0
         version: 5.33.14
+      unsortable:
+        specifier: workspace:*
+        version: link:../../packages/unsortable
       vite:
         specifier: ^6.0.0
         version: 6.3.5
+
+  packages/unsortable:
+    dependencies:
+      '@dnd-kit/dom':
+        specifier: ^0.1.18
+        version: 0.1.18
 
 packages:
 
@@ -202,9 +203,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@interactjs/types@1.10.27':
-    resolution: {integrity: sha512-BUdv0cvs4H5ODuwft2Xp4eL8Vmi3LcihK42z0Ft/FbVJZoRioBsxH+LlsBdK4tAie7PqlKGy+1oyOncu1nQ6eA==}
-
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
     engines: {node: '>=6.0.0'}
@@ -343,9 +341,6 @@ packages:
       vite:
         optional: true
 
-  '@shopify/draggable@1.1.4':
-    resolution: {integrity: sha512-EkXxBtQH119pGpLWhhhIPEdaeirGcVwkh6Nft1nqbMdM4N6b4r4v9wCmR1/r2gjTwu888I6qGI0VSlhoYivbYw==}
-
   '@sveltejs/acorn-typescript@1.0.5':
     resolution: {integrity: sha512-IwQk4yfwLdibDlrXVE04jTZYlLnwsTT2PIOQQGNLWfjavGifnk1JD1LcZjZaBTRcxZu2FfPfNLOE04DSu9lqtQ==}
     peerDependencies:
@@ -368,6 +363,9 @@ packages:
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
+
+  '@types/estree@1.0.8':
+    resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
   acorn@8.14.1:
     resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
@@ -524,9 +522,6 @@ packages:
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
-
-  interactjs@1.10.27:
-    resolution: {integrity: sha512-y/8RcCftGAF24gSp76X2JS3XpHiUvDQyhF8i7ujemBz77hwiHDuJzftHx7thY8cxGogwGiPJ+o97kWB6eAXnsA==}
 
   is-reference@3.0.3:
     resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
@@ -807,8 +802,6 @@ snapshots:
   '@esbuild/win32-x64@0.25.5':
     optional: true
 
-  '@interactjs/types@1.10.27': {}
-
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
       '@jridgewell/set-array': 1.2.1
@@ -909,8 +902,6 @@ snapshots:
       '@sveltejs/vite-plugin-svelte': 5.1.0(svelte@5.33.14)(vite@6.3.5)
       vite: 6.3.5
 
-  '@shopify/draggable@1.1.4': {}
-
   '@sveltejs/acorn-typescript@1.0.5(acorn@8.14.1)':
     dependencies:
       acorn: 8.14.1
@@ -938,6 +929,8 @@ snapshots:
       - supports-color
 
   '@types/estree@1.0.7': {}
+
+  '@types/estree@1.0.8': {}
 
   acorn@8.14.1: {}
 
@@ -1109,13 +1102,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  interactjs@1.10.27:
-    dependencies:
-      '@interactjs/types': 1.10.27
-
   is-reference@3.0.3:
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
 
   jsonfile@6.1.0:
     dependencies:
@@ -1220,7 +1209,7 @@ snapshots:
       '@ampproject/remapping': 2.3.0
       '@jridgewell/sourcemap-codec': 1.5.0
       '@sveltejs/acorn-typescript': 1.0.5(acorn@8.14.1)
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       acorn: 8.14.1
       aria-query: 5.3.2
       axobject-query: 4.1.0
