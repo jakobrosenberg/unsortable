@@ -13,7 +13,8 @@ const defaultOptions = {
   autoAttach: true,
 }
 
-const elemMap = new WeakMap()
+const containerMap = new WeakMap()
+const itemMap = new WeakMap()
 
 export class Unsortable {
   /**
@@ -24,6 +25,7 @@ export class Unsortable {
     this.manager = new DragDropManager()
     this.addDraggable = this.addDraggable.bind(this)
     this.addDroppable = this.addDroppable.bind(this)
+    this.addHandle = this.addHandle.bind(this)
     this._onDragOver = this._onDragOver.bind(this)
 
     if (this.options.autoAttach) this.attach()
@@ -50,7 +52,7 @@ export class Unsortable {
 
   handleMove(event) {
     console.debug('Unsortable: handling move', event, this.manager)
-    const source = getNearestParentElementFromMap(event.operation.source.element, elemMap)
+    const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
 
     const sourceItem = event.operation.source.data.item.get()
     const sourceItems = source.items.get()
@@ -69,8 +71,8 @@ export class Unsortable {
 
   handleSort(event) {
     console.debug('Unsortable: handling sort', event)
-    const source = getNearestParentElementFromMap(event.operation.source.element, elemMap)
-    const target = getNearestParentElementFromMap(event.operation.target.element, elemMap)
+    const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
+    const target = getNearestParentElementFromMap(event.operation.target.element, containerMap)
 
     const sourceItem = event.operation.source.data.item.get()
     const sourceItems = source.items.get()
@@ -105,6 +107,7 @@ export class Unsortable {
 
   addDraggable(element, options) {
     options.item = toItemAccessor(options.item)
+
     console.debug('unsortable: draggable options', options)
     const draggable = new Draggable(
       {
@@ -127,6 +130,12 @@ export class Unsortable {
       },
       this.manager,
     )
+
+    options.draggable = draggable
+    options.droppable = droppable
+
+    itemMap.set(element, options)
+
     return {
       draggable,
       droppable,
@@ -140,7 +149,6 @@ export class Unsortable {
   addDroppable(element, options) {
     options.items = toArrayAccessors(options.items)
 
-    elemMap.set(element, options)
     const droppable = new Droppable(
       {
         ...options,
@@ -152,11 +160,21 @@ export class Unsortable {
       this.manager,
     )
 
+    options.droppable = droppable
+    containerMap.set(element, options)
+
     return {
       droppable,
       destroy() {
         droppable.destroy()
       },
     }
+  }
+
+  addHandle(element) {
+    requestAnimationFrame(() => {
+      const nearest = getNearestParentElementFromMap(element, itemMap)
+      nearest.draggable.handle = element
+    })
   }
 }
