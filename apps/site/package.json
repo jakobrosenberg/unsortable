@@ -8,12 +8,13 @@
     "dev": "vite"
   },
   "devDependencies": {
-    "@roxi/routify": "^3.0.0-next.245",
-    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "@roxi/routify": "3.0.0-next.287",
+    "@sveltejs/vite-plugin-svelte": "5.1.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.8",
     "daisyui": "^5.0.40",
     "mdsvex": "^0.12.6",
+    "spank": "^2.2.2",
     "svelte": "^5.0.0",
     "tailwindcss": "^4.1.8",
     "unsortable": "workspace:*",

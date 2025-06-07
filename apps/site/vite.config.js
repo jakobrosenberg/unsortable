@@ -26,6 +26,8 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-
+  css: {
+    // tailwind build fix
+  },
   server: { port: 1337 },
 })
