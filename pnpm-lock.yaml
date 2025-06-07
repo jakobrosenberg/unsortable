@@ -20,6 +20,9 @@ importers:
       '@auto-it/twitter':
         specifier: ^11.3.0
         version: 11.3.0(@types/node@22.15.30)(typescript@5.8.3)
+      '@release-it/bumper':
+        specifier: ^7.0.5
+        version: 7.0.5(release-it@19.0.3(@types/node@22.15.30))
       auto:
         specifier: ^11.3.0
         version: 11.3.0(@types/node@22.15.30)(typescript@5.8.3)
@@ -512,6 +515,9 @@ packages:
     resolution: {integrity: sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==}
     engines: {node: '>=6.9.0'}
 
+  '@iarna/toml@3.0.0':
+    resolution: {integrity: sha512-td6ZUkz2oS3VeleBcN+m//Q6HlCFCPrnI0FZhrt/h4XqLEdOyYp2u21nd8MdsR+WJy5r9PTDaHTDDfhf4H4l6Q==}
+
   '@inquirer/checkbox@4.1.8':
     resolution: {integrity: sha512-d/QAsnwuHX2OPolxvYcgSj7A9DO9H6gVOy2DvBTx+P2LH2iRTo/RSGV3iwCzW024nP9hw98KIuDmdyhZQj1UQg==}
     engines: {node: '>=18'}
@@ -790,6 +796,12 @@ packages:
 
   '@preact/signals-core@1.9.0':
     resolution: {integrity: sha512-uUgFHJLWxb33rfCtb1g+1e3Rg7Jl5EALhGTHlQ5Y0w37OF+fdidYdYEE6crbpUOYDOjlmelIWf0ulXr1ggfUkg==}
+
+  '@release-it/bumper@7.0.5':
+    resolution: {integrity: sha512-HCFMqDHreLYg4jjTWL//pW1GzZZMn3p7HDbwS2y7y5m0L6p8hEaOEixC3tEzwyVV7VP1VGjqxMvxfa360q8+Tg==}
+    engines: {node: ^20.9.0 || >=22.0.0}
+    peerDependencies:
+      release-it: '>=18.0.0 || >=19.0.0'
 
   '@rolldown/pluginutils@1.0.0-beta.9':
     resolution: {integrity: sha512-e9MeMtVWo186sgvFFJOPGy7/d2j2mZhLJIdVW0C/xDluuOvymEATqz6zKsP0ZmXGzQtqlyjz5sC1sYQUoJG98w==}
@@ -1631,6 +1643,10 @@ packages:
   destr@2.0.5:
     resolution: {integrity: sha512-ugFTXCtDZunbzasqBxrK93Ik/DRYsO6S/fedkWEMKqt04xZ4csmnmwGDBAb07QWNaGMAmnTIemsYZCksjATwsA==}
 
+  detect-indent@7.0.1:
+    resolution: {integrity: sha512-Mc7QhQ8s+cLrnUfU/Ji94vG/r8M26m8f++vyres4ZoojaRDpZ1eSIh/EpzLNwlWuvzSZ3UbDFspjFvTDXe6e/g==}
+    engines: {node: '>=12.20'}
+
   detect-libc@2.0.4:
     resolution: {integrity: sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==}
     engines: {node: '>=8'}
@@ -2194,6 +2210,10 @@ packages:
   ini@1.3.8:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
 
+  ini@5.0.0:
+    resolution: {integrity: sha512-+N0ngpO3e7cRUWOJAS7qw0IZIVc6XPrW4MlFBdD066F2L4k1L6ker3hLqSq7iXxU5tgS4WGkIUElWn5vogAEnw==}
+    engines: {node: ^18.17.0 || >=20.5.0}
+
   inquirer@12.6.3:
     resolution: {integrity: sha512-eX9beYAjr1MqYsIjx1vAheXsRk1jbZRvHLcBu5nA9wX0rXR1IfCZLnVLp4Ym4mrhqmh7AuANwcdtgQ291fZDfQ==}
     engines: {node: '>=18'}
@@ -2557,6 +2577,9 @@ packages:
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
+
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -4365,6 +4388,8 @@ snapshots:
 
   '@hutson/parse-repository-url@3.0.2': {}
 
+  '@iarna/toml@3.0.0': {}
+
   '@inquirer/checkbox@4.1.8(@types/node@22.15.30)':
     dependencies:
       '@inquirer/core': 10.1.13(@types/node@22.15.30)
@@ -4687,6 +4712,18 @@ snapshots:
   '@phun-ky/typeof@1.2.8': {}
 
   '@preact/signals-core@1.9.0': {}
+
+  '@release-it/bumper@7.0.5(release-it@19.0.3(@types/node@22.15.30))':
+    dependencies:
+      '@iarna/toml': 3.0.0
+      cheerio: 1.0.0
+      detect-indent: 7.0.1
+      fast-glob: 3.3.3
+      ini: 5.0.0
+      js-yaml: 4.1.0
+      lodash-es: 4.17.21
+      release-it: 19.0.3(@types/node@22.15.30)
+      semver: 7.7.2
 
   '@rolldown/pluginutils@1.0.0-beta.9': {}
 
@@ -5547,6 +5584,8 @@ snapshots:
 
   destr@2.0.5: {}
 
+  detect-indent@7.0.1: {}
+
   detect-libc@2.0.4: {}
 
   didyoumean@1.2.2: {}
@@ -6238,6 +6277,8 @@ snapshots:
 
   ini@1.3.8: {}
 
+  ini@5.0.0: {}
+
   inquirer@12.6.3(@types/node@22.15.30):
     dependencies:
       '@inquirer/core': 10.1.13(@types/node@22.15.30)
@@ -6569,6 +6610,8 @@ snapshots:
   locate-path@6.0.0:
     dependencies:
       p-locate: 5.0.0
+
+  lodash-es@4.17.21: {}
 
   lodash.camelcase@4.3.0: {}
 

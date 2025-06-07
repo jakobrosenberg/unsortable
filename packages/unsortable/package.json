@@ -14,6 +14,7 @@
     "./vue": "./vue/index.js"
   },
   "scripts": {
+    "release": "release-it",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -41,5 +42,8 @@
   "optionalDependencies": {
     "svelte": "^5.0.0",
     "vue": "^3.0.0"
+  },
+  "release-it": {
+    "git": false
   }
 }
