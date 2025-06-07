@@ -1,6 +1,7 @@
 {
   "name": "unsortable-site",
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "vite build",
     "preview": "vite preview",
