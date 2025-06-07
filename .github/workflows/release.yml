@@ -16,17 +16,22 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           run_install: false
+
       - name: Enable Corepack
         run: corepack enable
+
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
+
       - name: Install dependencies
         run: pnpm install
-      - name: Fix Git remote to use token
-        run: git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+
+      - name: Force git to use token for all github.com URLs
+        run: git config --global url."https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
       - name: Create Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
