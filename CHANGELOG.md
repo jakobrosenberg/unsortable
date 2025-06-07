@@ -1,3 +1,16 @@
+# v0.1.2 (Sat Jun 07 2025)
+
+#### 🐛 Bug Fix
+
+- fix: bad package.json field ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- fix: npm publishing ([@jakobrosenberg](https://github.com/jakobrosenberg))
+
+#### Authors: 1
+
+- Jakob Rosenberg ([@jakobrosenberg](https://github.com/jakobrosenberg))
+
+---
+
 # v0.1.1 (Sat Jun 07 2025)
 
 #### 🐛 Bug Fix
