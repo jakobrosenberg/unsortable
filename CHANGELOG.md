@@ -1,3 +1,17 @@
+# v0.1.1 (Sat Jun 07 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Add step to prepare repository by fetching tags in release workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Update release workflow to install pnpm v10 and enable Corepack; update node-fetch and tslib versions in lockfile ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Update release workflow to use pnpm v10 and Node.js 20 ([@jakobrosenberg](https://github.com/jakobrosenberg))
+
+#### Authors: 1
+
+- Jakob Rosenberg ([@jakobrosenberg](https://github.com/jakobrosenberg))
+
+---
+
 # v0.1.0 (Sat Jun 07 2025)
 
 :tada: This release contains work from a new contributor! :tada:
