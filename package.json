@@ -1,5 +1,5 @@
 {
-  "name": "sortie",
+  "name": "unsortable-monorepo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,12 +8,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jakob Rosenberg <jakobrosenberg@gmail.com>",
   "license": "ISC",
   "packageManager": "pnpm@9.15.1",
   "workspaces": [
     "packages/*",
     "apps/*",
     "examples/*"
-  ]
+  ],
+  "devDependencies": {
+    "auto": "^11.3.0"
+  },
+  "repository": "jakobrosenberg/unsortable"
 }

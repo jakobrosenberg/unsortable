@@ -1,9 +1,12 @@
 {
   "name": "unsortable",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Headless drag-and-drop library for nested sorting using state instead of DOM mutations.",
   "main": "lib/index.js",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": "./lib/index.js",
     "./svelte": "./svelte/index.js",
