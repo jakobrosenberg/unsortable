@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -29,7 +31,9 @@ jobs:
         run: pnpm install
 
       - name: Release
-        run: pnpm run release --ci
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          pnpm run release --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
