@@ -1,6 +1,6 @@
 {
   "name": "unsortable",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Headless drag-and-drop library for nested sorting using state instead of DOM mutations.",
   "main": "lib/index.js",
   "type": "module",
@@ -44,7 +44,11 @@
     "vue": "^3.0.0"
   },
   "release-it": {
-    "git": false,
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagName": "v${version}",
+      "requireCleanWorkingDir": false
+    },
     "plugins": {
       "release-it-pnpm": {}
     }
