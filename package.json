@@ -19,5 +19,16 @@
   "devDependencies": {
     "auto": "^11.3.0"
   },
-  "repository": "jakobrosenberg/unsortable"
+  "repository": "jakobrosenberg/unsortable",
+  "auto": {
+    "plugins": [
+      "npm",
+      "all-contributors",
+      "conventional-commits",
+      "first-time-contributor",
+      "released",
+      "twitter"
+    ],
+    "onlyPublishWithReleaseLabel": true
+  }
 }
