@@ -20,7 +20,8 @@
   ],
   "devDependencies": {
     "@release-it/bumper": "^7.0.5",
-    "release-it": "^19.0.3"
+    "release-it": "^19.0.3",
+    "release-it-pnpm": "^4.6.6"
   },
   "repository": "jakobrosenberg/unsortable",
   "release-it": {

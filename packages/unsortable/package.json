@@ -44,6 +44,9 @@
     "vue": "^3.0.0"
   },
   "release-it": {
-    "git": false
+    "git": false,
+    "plugins": {
+      "release-it-pnpm": {}
+    }
   }
 }
