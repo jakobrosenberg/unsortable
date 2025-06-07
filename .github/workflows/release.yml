@@ -12,21 +12,24 @@ jobs:
       - name: Prepare repository
         run: git fetch --unshallow --tags
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
         with:
-          run_install: false
-      - name: Enable Corepack
-        run: corepack enable
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+          node-version: 12.x
+
+      - name: Cache node modules
+        uses: actions/cache@v1
         with:
-          node-version: 20
-          cache: 'pnpm'
-      - name: Install dependencies
-        run: pnpm install
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm run release
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+          npx auto shipit
