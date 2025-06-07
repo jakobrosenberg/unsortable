@@ -1,5 +1,36 @@
 # v0.1.1 (Sat Jun 07 2025)
 
+#### 🐛 Bug Fix
+
+- fix: publish test ([@jakobrosenberg](https://github.com/jakobrosenberg))
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of https://github.com/jakobrosenberg/unsortable ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Add permissions section to release workflow for content write access ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Refactor Git remote configuration to use global URL replacement for GitHub token ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Update release command to use 'npx auto shipit' in workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- ty gh_token ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- fix typo ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Fix environment variable assignment for GH_TOKEN in release workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- try create release fix ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- use official release.yml ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Replace 'npx auto shipit' with 'pnpm run release' in release workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Replace 'pnpm dlx' with 'npx' for running auto shipit in release workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Update checkout action to v2 in release workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Fix GitHub token secret reference in release workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Add step to prepare repository by fetching tags in release workflow ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Update release workflow to install pnpm v10 and enable Corepack; update node-fetch and tslib versions in lockfile ([@jakobrosenberg](https://github.com/jakobrosenberg))
+- Update release workflow to use pnpm v10 and Node.js 20 ([@jakobrosenberg](https://github.com/jakobrosenberg))
+
+#### Authors: 1
+
+- Jakob Rosenberg ([@jakobrosenberg](https://github.com/jakobrosenberg))
+
+---
+
+# v0.1.1 (Sat Jun 07 2025)
+
 #### ⚠️ Pushed to `main`
 
 - Add permissions section to release workflow for content write access ([@jakobrosenberg](https://github.com/jakobrosenberg))
