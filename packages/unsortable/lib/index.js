@@ -38,7 +38,7 @@ export class Unsortable {
 
   destroy() {
     console.debug('Unsortable: destroying')
-    this.manager.monitor.removeEventListener('dragover', this._onDragOver)
+    this.manager.destroy()
   }
 
   _onDragOver(event) {
@@ -148,6 +148,7 @@ export class Unsortable {
 
   addDroppable(element, options) {
     options.items = toArrayAccessors(options.items)
+    options.items.set = options.setItems || options.items.set
 
     const droppable = new Droppable(
       {
