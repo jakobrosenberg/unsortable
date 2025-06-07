@@ -4,6 +4,7 @@
   "description": "Headless drag-and-drop library for nested sorting using state instead of DOM mutations.",
   "main": "lib/index.js",
   "type": "module",
+  "private": false,
   "publishConfig": {
     "access": "public"
   },
