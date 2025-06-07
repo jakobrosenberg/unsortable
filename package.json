@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "pnpm --filter unsortable-site dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "pnpm --filter packages/unsortable exec release-it"
+    "release": "pnpm --filter unsortable exec release-it"
   },
   "keywords": [],
   "author": "Jakob Rosenberg <jakobrosenberg@gmail.com>",
