@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter unsortable-site dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "auto shipit"
   },
   "keywords": [],
   "author": "Jakob Rosenberg <jakobrosenberg@gmail.com>",
@@ -17,6 +18,10 @@
     "examples/*"
   ],
   "devDependencies": {
+    "@auto-it/all-contributors": "^11.3.0",
+    "@auto-it/conventional-commits": "^11.3.0",
+    "@auto-it/first-time-contributor": "^11.3.0",
+    "@auto-it/twitter": "^11.3.0",
     "auto": "^11.3.0"
   },
   "repository": "jakobrosenberg/unsortable",
@@ -26,8 +31,7 @@
       "all-contributors",
       "conventional-commits",
       "first-time-contributor",
-      "released",
-      "twitter"
+      "released"
     ],
     "onlyPublishWithReleaseLabel": true
   }
