@@ -34,11 +34,6 @@
       "first-time-contributor",
       "released"
     ],
-    "onlyPublishWithReleaseLabel": false,
-    "monorepo": {
-      "packages": [
-        "packages/unsortable"
-      ]
-    }
+    "onlyPublishWithReleaseLabel": false
   }
 }
