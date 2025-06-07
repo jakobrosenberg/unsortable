@@ -6,7 +6,8 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./svelte": "./svelte/index.js"
+    "./svelte": "./svelte/index.js",
+    "./vue": "./vue/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -34,6 +35,7 @@
     "@dnd-kit/dom": "^0.1.18"
   },
   "optionalDependencies": {
-    "svelte": "^5.0.0"
+    "svelte": "^5.0.0",
+    "vue": "^3.0.0"
   }
 }
