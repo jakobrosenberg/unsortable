@@ -21,8 +21,7 @@
       animate:flip={{ duration: 300 }}
       class="card bg-base-100 shadow-xl p-4 w-100"
       use:addDraggable={{
-        item: { get: () => item },
-        index,
+        item: () => item,
         accept: ['top'],
         type: 'top',
       }}
@@ -41,7 +40,7 @@
             <div
               animate:flip={{ duration: 300 }}
               class="my-card"
-              use:addDraggable={{ item: { get: () => child }, accept: ['bottom'], type: 'bottom' }}
+              use:addDraggable={{ item: () => child, accept: ['bottom'], type: 'bottom' }}
             >
               <h3>{child.name}</h3>
             </div>

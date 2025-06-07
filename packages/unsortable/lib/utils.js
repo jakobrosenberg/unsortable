@@ -38,12 +38,14 @@ export const getNearestParentElementFromMap = (element, map) => {
 }
 
 export const toArrayAccessors = (arr) => {
-  const mappedArr = Array.isArray(arr) ? { get: () => arr, set: (items) => arr.splice(0, items.length, ...items) } : arr
+  const mappedArr = Array.isArray(arr)
+    ? { get: () => arr, set: (items) => arr.splice(0, items.length, ...items) }
+    : typeof arr === 'function'
+    ? { get: arr, set: (items) => arr().splice(0, items.length, ...items)  }
+    : arr
   return mappedArr
 }
 
 export function toItemAccessor(item) {
-  return typeof item?.get === 'function'
-    ? item
-    : { get: () => item, set: (val) => Object.assign(item, val) }
+  return typeof item === 'function' ? item : () => item
 }

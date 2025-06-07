@@ -1,24 +1,10 @@
 import { Unsortable } from '../lib'
 import { onDestroy } from 'svelte'
 
-/**
- * @typedef {Object} UnsortableSvelteOptions
- * @property {boolean} [autoAttach=true] - Whether to automatically attach the Unsortable instance to the drag manager.
- */
-
-/**
- * @type {UnsortableSvelteOptions}
- */
-const defaultOptions = {
-  autoAttach: true,
-}
-
 class UnsortableSvelte extends Unsortable {
-  /**
-   * @param {UnsortableSvelteOptions=} options - Configuration options for Unsortable.
-   */
+  /** @param {ConstructorParameters<typeof Unsortable>[0]=} options */
   constructor(options) {
-    super({ ...defaultOptions, ...options })
+    super(options)
     onDestroy(() => this.destroy())
   }
 }

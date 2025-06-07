@@ -16,14 +16,13 @@
   const { addDraggable, addDroppable } = new Unsortable()
 </script>
 
-
 <p class="demo-description">
   Vertical list using Svelte's <code>animate:flip</code>
 </p>
 
-<div class="flex-list flex-col" use:addDroppable={{ items: { get: () => items, set: (r) => (items = r) } }}>
+<div class="flex-list flex-col" use:addDroppable={{ items }}>
   {#each items as item (item)}
-    <div animate:flip={{ duration: 150 }} class="my-card" use:addDraggable={{ item: { get: () => item } }}>
+    <div animate:flip={{ duration: 150 }} class="my-card" use:addDraggable={{ item  }}>
       <h2>{item.name}</h2>
     </div>
   {/each}

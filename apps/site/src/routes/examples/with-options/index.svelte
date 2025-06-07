@@ -28,13 +28,9 @@
   This demo highlights three features: a custom drag handle, vertical-only movement, and a shadow effect while dragging.
 </p>
 
-<div class="flex-list flex-col" use:addDroppable={{ items: { get: () => items, set: (r) => (items = r) } }}>
+<div class="flex-list flex-col" use:addDroppable={{ items }}>
   {#each items as item (item)}
-    <div
-      animate:flip={{ duration: 150 }}
-      class="my-flat-card transition-all relative"
-      use:addDraggable={{ item: { get: () => item } }}
-    >
+    <div animate:flip={{ duration: 150 }} class="my-flat-card transition-all relative" use:addDraggable={{ item }}>
       <div use:addHandle class="absolute left-2 top-1 font-bold cursor-grab">⋮⋮</div>
       <h2>{item.name}</h2>
     </div>

@@ -4,6 +4,8 @@ import { getNearestParentElementFromMap, hasValue, move, toArrayAccessors, toIte
 /**
  * @typedef {Object} UnsortableOptions
  * @property {boolean} [autoAttach=true] - Whether to automatically attach the Unsortable instance to the drag manager.
+ * @property {import('@dnd-kit/dom').DragDropManagerInput} [managerOptions={}] - Options for the DragDropManager instance.
+ * @property {import('@dnd-kit/dom').DragDropManager} [manager=undefined] - An instance of DragDropManager to use. If not provided, a new instance will be created.
  */
 
 /**
@@ -22,7 +24,7 @@ export class Unsortable {
    */
   constructor(options) {
     this.options = { ...defaultOptions, ...options }
-    this.manager = new DragDropManager()
+    this.manager = options?.manager || new DragDropManager(options?.managerOptions)
     this.addDraggable = this.addDraggable.bind(this)
     this.addDroppable = this.addDroppable.bind(this)
     this.addHandle = this.addHandle.bind(this)
@@ -54,7 +56,7 @@ export class Unsortable {
     console.debug('Unsortable: handling move', event, this.manager)
     const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
 
-    const sourceItem = event.operation.source.data.item.get()
+    const sourceItem = event.operation.source.data.item()
     const sourceItems = source.items.get()
     const setSourceItems = source.items.set
 
@@ -74,9 +76,9 @@ export class Unsortable {
     const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
     const target = getNearestParentElementFromMap(event.operation.target.element, containerMap)
 
-    const sourceItem = event.operation.source.data.item.get()
+    const sourceItem = event.operation.source.data.item()
     const sourceItems = source.items.get()
-    const targetItem = event.operation.target.data.item.get()
+    const targetItem = event.operation.target.data.item()
     const targetItems = target.items.get()
 
     if (sourceItem === targetItem) {
@@ -105,40 +107,49 @@ export class Unsortable {
     }
   }
 
+  /**
+   * Adds a draggable element to the Unsortable instance.
+   * @template T
+   * @param {HTMLElement} element
+   * @param {Object} options
+   * @param {import('@dnd-kit/dom').DraggableInput['type']=} [options.type] - The type of the draggable element.
+   * @param {import('@dnd-kit/dom').DroppableInput['accept']=} [options.accept] - The accepted types for the droppable element.
+   * @param {import('@dnd-kit/dom').DraggableInput=} options.draggableOptions - Options for the Draggable instance.
+   * @param {import('@dnd-kit/dom').DroppableInput=} options.droppableOptions - Options for the Droppable instance.
+   * @param {T | (()=>T) } options.item - An accessor for the item associated with the draggable.
+   */
   addDraggable(element, options) {
     options.item = toItemAccessor(options.item)
 
     console.debug('unsortable: draggable options', options)
     const draggable = new Draggable(
       {
-        ...options,
-        ...options?.draggable,
-        id: options.item.get(),
+        type: options.type,
+        ...options?.draggableOptions,
+        id: options.item(),
         element,
-        data: options,
+        data: { ...options, ...options?.draggableOptions?.data, isContainer: false },
       },
       this.manager,
     )
 
     const droppable = new Droppable(
       {
-        ...options,
-        ...options?.droppable,
-        id: options.item.get(),
+        accept: options.accept || options.type,
+        ...options?.droppableOptions,
+        id: options.item(),
         element,
-        data: { ...options, isContainer: false },
+        data: { ...options, ...options?.droppableOptions?.data, isContainer: false },
       },
       this.manager,
     )
 
-    options.draggable = draggable
-    options.droppable = droppable
-
-    itemMap.set(element, options)
+    itemMap.set(element, { ...options, draggable, droppable })
 
     return {
       draggable,
       droppable,
+      options,
       destroy() {
         draggable.destroy()
         droppable.destroy()
@@ -146,26 +157,36 @@ export class Unsortable {
     }
   }
 
+  /**
+   * Adds a draggable element to the Unsortable instance.
+   * @template {any[]} T
+   * @param {HTMLElement} element
+   * @param {Object} options
+   * @param {import('@dnd-kit/dom').DroppableInput['accept']=} [options.accept] - The accepted types for the droppable element.
+   * @param {import('@dnd-kit/dom').DroppableInput=} options.droppableOptions - Options for the Droppable instance.
+   * @param {T | (() => T) | { set: ((T) => void), get: (() => T)}  } options.items - An accessor for the items associated with the droppable.
+   * @param {(T) => void=} [options.setItems] - A function to set the items in the droppable.
+   */
   addDroppable(element, options) {
     options.items = toArrayAccessors(options.items)
     options.items.set = options.setItems || options.items.set
 
     const droppable = new Droppable(
       {
-        ...options,
-        ...options?.droppable,
+        ...options?.droppableOptions,
         id: options.items.get(),
         element,
-        data: { ...options, isContainer: true },
+        accept: options.accept,
+        data: { ...options, ...options?.droppableOptions?.data, isContainer: true },
       },
       this.manager,
     )
 
-    options.droppable = droppable
     containerMap.set(element, options)
 
     return {
       droppable,
+      options,
       destroy() {
         droppable.destroy()
       },

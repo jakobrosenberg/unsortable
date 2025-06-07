@@ -20,13 +20,13 @@
     <h3 class="font-bold opacity-60 mb-4">Team 1</h3>
     <div
       class="flex-list flex-col h-full"
-      use:addDroppable={{ items: { get: () => team1, set: (r) => (team1 = r) }, accept: ['rooster', 'team1'] }}
+      use:addDroppable={{ items: () => team1, setItems: (r) => (team1 = r), accept: ['rooster', 'team1'] }}
     >
       {#each team1 as item (item)}
         <div
           animate:flip={{ duration: 150 }}
           class="my-card"
-          use:addDraggable={{ item: { get: () => item }, type: 'team1', accept: ['rooster', 'team1'] }}
+          use:addDraggable={{ item, type: 'team1', accept: ['rooster', 'team1'] }}
         >
           <h2>{item.name}</h2>
         </div>
@@ -39,13 +39,13 @@
     <div class="h-full">
       <div
         class="flex-list flex-col h-full"
-        use:addDroppable={{ items: { get: () => team3, set: (r) => (team3 = r) }, accept: ['rooster', 'team2'] }}
+        use:addDroppable={{ items: () => team3, setItems: (r) => (team3 = r), accept: ['rooster', 'team2'] }}
       >
         {#each team3 as item (item)}
           <div
             animate:flip={{ duration: 150 }}
             class="my-card"
-            use:addDraggable={{ item: { get: () => item }, type: 'team2', accept: ['rooster', 'team2'] }}
+            use:addDraggable={{ item, type: 'team2', accept: ['rooster', 'team2'] }}
           >
             <h2>{item.name}</h2>
           </div>
@@ -59,14 +59,10 @@
     <div class="inset-shadow-sm bg-base-300 rounded-xl p-8">
       <div
         class="flex-list flex-row flex-wrap"
-        use:addDroppable={{ items: { get: () => rooster, set: (r) => (rooster = r) } }}
+        use:addDroppable={{ items: () => rooster, setItems: (r) => (rooster = r) }}
       >
         {#each rooster as item (item)}
-          <div
-            animate:flip={{ duration: 150 }}
-            class="my-card"
-            use:addDraggable={{ item: { get: () => item }, type: 'rooster' }}
-          >
+          <div animate:flip={{ duration: 150 }} class="my-card" use:addDraggable={{ item, type: 'rooster' }}>
             <h2>{item.name}</h2>
             <small>In rooster</small>
           </div>
