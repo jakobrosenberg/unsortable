@@ -8,6 +8,7 @@ import { mdsvex } from 'mdsvex'
 const production = process.env.NODE_ENV === 'production'
 
 export default defineConfig({
+  base: '/unsortable', // e.g. /my-project/
   clearScreen: false,
   resolve: { alias: { '@': resolve('src') } },
   plugins: [
@@ -24,6 +25,7 @@ export default defineConfig({
         dev: !production,
       },
     }),
+    
     tailwindcss(),
   ],
   css: {
