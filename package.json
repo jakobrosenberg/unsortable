@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "pnpm --filter unsortable-site dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "auto shipit"
+    "release": "release-it"
   },
   "keywords": [],
   "author": "Jakob Rosenberg <jakobrosenberg@gmail.com>",
@@ -23,7 +23,14 @@
     "@auto-it/conventional-commits": "^11.3.0",
     "@auto-it/first-time-contributor": "^11.3.0",
     "@auto-it/twitter": "^11.3.0",
-    "auto": "^11.3.0"
+    "auto": "^11.3.0",
+    "release-it": "^19.0.3"
   },
-  "repository": "jakobrosenberg/unsortable"
+  "repository": "jakobrosenberg/unsortable",
+  "release-it": {
+    "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+    "github": {
+      "release": true
+    }
+  }
 }
