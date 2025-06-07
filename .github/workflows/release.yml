@@ -33,6 +33,11 @@ jobs:
       - name: Fetch all tags
         run: git fetch --prune --tags
 
+      - name: Set Git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Release
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
