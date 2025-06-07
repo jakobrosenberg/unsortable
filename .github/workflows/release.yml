@@ -29,6 +29,7 @@ jobs:
         run: git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
       - name: Create Release
         env:
+          GH_TOKEN: ${{ secrets.secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm run release
