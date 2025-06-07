@@ -34,7 +34,12 @@
     },
     "git": {
       "requireCleanWorkingDir": false,
-      "git": { "tagName": "v${version}" }
+      "git": {
+        "tagName": "v${version}"
+      }
+    },
+    "plugins": {
+      "release-it-pnpm": {}
     }
   }
 }
