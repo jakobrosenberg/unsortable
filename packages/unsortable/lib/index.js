@@ -1,5 +1,6 @@
 import { DragDropManager, Draggable, Droppable } from '@dnd-kit/dom'
 import { getNearestParentElementFromMap, hasValue, move, toArrayAccessors, toItemAccessor } from './utils'
+// import { closestCenter, pointerIntersection, directionBiased } from '@dnd-kit/collision'
 
 /**
  * @typedef {Object} UnsortableOptions
@@ -15,6 +16,9 @@ const defaultOptions = {
   autoAttach: true,
 }
 
+let lastDroppable = null
+let lastDroppableOriginalState = null
+
 const containerMap = new WeakMap()
 const itemMap = new WeakMap()
 
@@ -29,6 +33,8 @@ export class Unsortable {
     this.addDroppable = this.addDroppable.bind(this)
     this.addHandle = this.addHandle.bind(this)
     this._onDragOver = this._onDragOver.bind(this)
+    this._disableOwnDroppable = this._disableOwnDroppable.bind(this)
+    this._restoreLastDroppable = this._restoreLastDroppable.bind(this)
 
     if (this.options.autoAttach) this.attach()
   }
@@ -36,6 +42,25 @@ export class Unsortable {
   attach() {
     console.debug('Unsortable: attaching to drag manager')
     this.manager.monitor.addEventListener('dragover', this._onDragOver)
+    this.manager.monitor.addEventListener('dragover', this._disableOwnDroppable)
+    this.manager.monitor.addEventListener('beforedragstart', this._disableOwnDroppable)
+    this.manager.monitor.addEventListener('dragend', this._restoreLastDroppable)
+  }
+
+  _disableOwnDroppable(e) {
+    const droppable = e.operation.source.data.droppable
+    console.debug('Unsortable: disabling own droppable', droppable, lastDroppable)
+    if (lastDroppable && droppable !== lastDroppable) this._restoreLastDroppable()
+    lastDroppableOriginalState = droppable.disabled
+    droppable.disabled = true
+    lastDroppable = droppable
+  }
+
+  _restoreLastDroppable() {
+    console.debug('Unsortable: restoring last droppable', lastDroppable, lastDroppableOriginalState)
+    lastDroppable.disabled = lastDroppableOriginalState
+    lastDroppable = null
+    lastDroppableOriginalState = null
   }
 
   destroy() {
@@ -122,16 +147,6 @@ export class Unsortable {
     options.item = toItemAccessor(options.item)
 
     console.debug('unsortable: draggable options', options)
-    const draggable = new Draggable(
-      {
-        type: options.type,
-        ...options?.draggableOptions,
-        id: options.item(),
-        element,
-        data: { ...options, ...options?.draggableOptions?.data, isContainer: false },
-      },
-      this.manager,
-    )
 
     const droppable = new Droppable(
       {
@@ -140,6 +155,17 @@ export class Unsortable {
         id: options.item(),
         element,
         data: { ...options, ...options?.droppableOptions?.data, isContainer: false },
+      },
+      this.manager,
+    )
+
+    const draggable = new Draggable(
+      {
+        type: options.type,
+        id: options.item(),
+        element,
+        ...options?.draggableOptions,
+        data: { ...options, ...options?.draggableOptions?.data, droppable, isContainer: false },
       },
       this.manager,
     )
