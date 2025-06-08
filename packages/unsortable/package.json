@@ -1,6 +1,6 @@
 {
   "name": "unsortable",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Headless drag-and-drop library for nested sorting using state instead of DOM mutations.",
   "main": "lib/index.js",
   "type": "module",
