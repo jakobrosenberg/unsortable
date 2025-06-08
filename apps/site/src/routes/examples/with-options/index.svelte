@@ -15,13 +15,11 @@
 
   let items = $state(data)
   const unsortable = new Unsortable()
-  const { addDraggable, addDroppable, addHandle } = unsortable
+  const { addDraggable, addDroppable, addHandle, manager } = unsortable
 
-  unsortable.manager.modifiers = [RestrictToVerticalAxis]
-  unsortable.manager.monitor.addEventListener('dragstart', (e) => e.operation.source.element.classList.add('shadow-lg'))
-  unsortable.manager.monitor.addEventListener('dragend', (e) =>
-    e.operation.source.element.classList.remove('shadow-lg'),
-  )
+  manager.modifiers = [RestrictToVerticalAxis]
+  manager.monitor.addEventListener('dragstart', (e) => e.operation.source.element.classList.add('shadow-lg'))
+  manager.monitor.addEventListener('dragend', (e) => e.operation.source.element.classList.remove('shadow-lg'))
 </script>
 
 <p class="demo-description">
