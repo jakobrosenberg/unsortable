@@ -71,7 +71,7 @@ export class Unsortable {
   _onDragOver(event) {
     if (!event.operation.target) return
     console.debug('Unsortable: drag over event', event)
-    event.operation.source.element['style'].display = 'block'
+    event.operation.source.element.removeAttribute('popover')
 
     if (event.operation.target.data.isContainer) return this.handleMove(event)
     else return this.handleSort(event)
