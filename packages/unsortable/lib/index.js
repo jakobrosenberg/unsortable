@@ -1,6 +1,5 @@
 import { DragDropManager, Draggable, Droppable } from '@dnd-kit/dom'
 import { getNearestParentElementFromMap, hasValue, move, toArrayAccessors, toItemAccessor } from './utils'
-// import { closestCenter, pointerIntersection, directionBiased } from '@dnd-kit/collision'
 
 /**
  * @typedef {Object} UnsortableOptions
@@ -51,6 +50,7 @@ export class Unsortable {
     const droppable = e.operation.source.data.droppable
     console.debug('Unsortable: disabling own droppable', droppable, lastDroppable)
     if (lastDroppable && droppable !== lastDroppable) this._restoreLastDroppable()
+    else if (lastDroppable === droppable) return
     lastDroppableOriginalState = droppable.disabled
     droppable.disabled = true
     lastDroppable = droppable
