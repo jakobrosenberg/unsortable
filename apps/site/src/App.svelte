@@ -4,7 +4,7 @@
 
   const router = createRouter({
     routes,
-    urlRewrite: {
+    urlRewrite: import.meta.env.SSR ? undefined : {
       toExternal: (url) => '/unsortable' + url,
       toInternal: (url) => url.replace('/unsortable', ''),
     },
