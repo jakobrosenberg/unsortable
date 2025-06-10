@@ -128,7 +128,7 @@ export class Unsortable {
     const droppable = new Droppable(
       {
         id: options.id ?? options.item(),
-        accept: options.accept || options.type,
+        accept: options.accept ?? options.type,
         ...options?.droppableOptions,
         element,
         data: { ...options?.droppableOptions?.data, _unsortable: { ...options, isContainer: false } },
@@ -181,7 +181,7 @@ export class Unsortable {
 
     const droppable = new Droppable(
       {
-        ...options?.droppableOptions,
+        ...options.droppableOptions,
         id: options.id ?? options.items.get(),
         element,
         accept: options.accept,
