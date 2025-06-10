@@ -16,9 +16,6 @@ const defaultOptions = {
   autoAttach: true,
 }
 
-let lastDroppable = null
-let lastDroppableOriginalState = null
-
 const containerMap = new WeakMap()
 const itemMap = new WeakMap()
 
@@ -33,8 +30,6 @@ export class Unsortable {
     this.addDroppable = this.addDroppable.bind(this)
     this.addHandle = this.addHandle.bind(this)
     this._onDragOver = this._onDragOver.bind(this)
-    this._disableOwnDroppable = this._disableOwnDroppable.bind(this)
-    this._restoreLastDroppable = this._restoreLastDroppable.bind(this)
 
     if (this.options.autoAttach) this.attach()
   }
@@ -42,26 +37,6 @@ export class Unsortable {
   attach() {
     console.debug('Unsortable: attaching to drag manager')
     this.manager.monitor.addEventListener('dragover', this._onDragOver)
-    this.manager.monitor.addEventListener('dragover', this._disableOwnDroppable)
-    this.manager.monitor.addEventListener('beforedragstart', this._disableOwnDroppable)
-    this.manager.monitor.addEventListener('dragend', this._restoreLastDroppable)
-  }
-
-  _disableOwnDroppable(e) {
-    const droppable = e.operation.source.data._unsortable.droppable
-    console.debug('Unsortable: disabling own droppable', droppable, lastDroppable)
-    if (lastDroppable && droppable !== lastDroppable) this._restoreLastDroppable()
-    else if (lastDroppable === droppable) return
-    lastDroppableOriginalState = droppable.disabled
-    droppable.disabled = true
-    lastDroppable = droppable
-  }
-
-  _restoreLastDroppable() {
-    console.debug('Unsortable: restoring last droppable', lastDroppable, lastDroppableOriginalState)
-    lastDroppable.disabled = lastDroppableOriginalState
-    lastDroppable = null
-    lastDroppableOriginalState = null
   }
 
   destroy() {
