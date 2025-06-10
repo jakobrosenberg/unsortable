@@ -1,5 +1,6 @@
 import { DragDropManager, Draggable, Droppable } from '@dnd-kit/dom'
 import { getNearestParentElementFromMap, hasValue, move, toArrayAccessors, toItemAccessor } from './utils'
+import { Collections } from './plugins/collections'
 
 /**
  * @typedef {Object} UnsortableOptions
@@ -47,7 +48,7 @@ export class Unsortable {
   }
 
   _disableOwnDroppable(e) {
-    const droppable = e.operation.source.data.droppable
+    const droppable = e.operation.source.data._unsortable.droppable
     console.debug('Unsortable: disabling own droppable', droppable, lastDroppable)
     if (lastDroppable && droppable !== lastDroppable) this._restoreLastDroppable()
     else if (lastDroppable === droppable) return
@@ -73,7 +74,7 @@ export class Unsortable {
     console.debug('Unsortable: drag over event', event)
     event.operation.source.element.removeAttribute('popover')
 
-    if (event.operation.target.data.isContainer) return this.handleMove(event)
+    if (event.operation.target.data._unsortable.isContainer) return this.handleMove(event)
     else return this.handleSort(event)
   }
 
@@ -81,12 +82,12 @@ export class Unsortable {
     console.debug('Unsortable: handling move', event, this.manager)
     const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
 
-    const sourceItem = event.operation.source.data.item()
+    const sourceItem = event.operation.source.data._unsortable.item()
     const sourceItems = source.items.get()
     const setSourceItems = source.items.set
 
-    const targetItems = event.operation.target.data.items.get()
-    const setTargetItems = event.operation.target.data.items.set
+    const targetItems = event.operation.target.data._unsortable.items.get()
+    const setTargetItems = event.operation.target.data._unsortable.items.set
 
     const isAlreadyInTargetItems = targetItems.includes(sourceItem)
     if (isAlreadyInTargetItems) return
@@ -101,9 +102,9 @@ export class Unsortable {
     const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
     const target = getNearestParentElementFromMap(event.operation.target.element, containerMap)
 
-    const sourceItem = event.operation.source.data.item()
+    const sourceItem = event.operation.source.data._unsortable.item()
     const sourceItems = source.items.get()
-    const targetItem = event.operation.target.data.item()
+    const targetItem = event.operation.target.data._unsortable.item()
     const targetItems = target.items.get()
 
     if (sourceItem === targetItem) {
@@ -155,7 +156,7 @@ export class Unsortable {
         accept: options.accept || options.type,
         ...options?.droppableOptions,
         element,
-        data: { ...options, ...options?.droppableOptions?.data, isContainer: false },
+        data: { ...options?.droppableOptions?.data, _unsortable: { ...options, isContainer: false } },
       },
       this.manager,
     )
@@ -166,7 +167,11 @@ export class Unsortable {
         id: options.id ?? options.item(),
         element,
         ...options?.draggableOptions,
-        data: { ...options, ...options?.draggableOptions?.data, droppable, isContainer: false },
+        data: {
+          ...options,
+          ...options?.draggableOptions?.data,
+          _unsortable: { droppable, ...options, isContainer: false },
+        },
       },
       this.manager,
     )
@@ -205,7 +210,7 @@ export class Unsortable {
         id: options.id ?? options.items.get(),
         element,
         accept: options.accept,
-        data: { ...options, ...options?.droppableOptions?.data, isContainer: true },
+        data: { ...options?.droppableOptions?.data, _unsortable: { ...options, isContainer: true } },
       },
       this.manager,
     )
