@@ -11,7 +11,8 @@
         "paths": {
             "@": ["./src"],
             "@/*": ["./src/*"]
-        }
+        },
+        "target": "ESNext",
     },
     "include": [
         "src/**/*.d.ts",

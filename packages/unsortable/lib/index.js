@@ -1,5 +1,6 @@
 import { DragDropManager, Draggable, Droppable } from '@dnd-kit/dom'
 import { getNearestParentElementFromMap, hasValue, move, toArrayAccessors, toItemAccessor } from './utils'
+import { pointerIntersection } from '@dnd-kit/collision'
 import { Collections } from './plugins/collections'
 
 /**
@@ -26,6 +27,7 @@ export class Unsortable {
   constructor(options) {
     this.options = { ...defaultOptions, ...options }
     this.manager = options?.manager || new DragDropManager(options?.managerOptions)
+    this.manager.registry.register(Collections)
     this.addDraggable = this.addDraggable.bind(this)
     this.addDroppable = this.addDroppable.bind(this)
     this.addHandle = this.addHandle.bind(this)
@@ -129,6 +131,7 @@ export class Unsortable {
       {
         id: options.id ?? options.item(),
         accept: options.accept ?? options.type,
+        collisionDetector: pointerIntersection,
         ...options?.droppableOptions,
         element,
         data: { ...options?.droppableOptions?.data, _unsortable: { ...options, isContainer: false } },
@@ -182,7 +185,7 @@ export class Unsortable {
     const droppable = new Droppable(
       {
         ...options.droppableOptions,
-        id: options.id ?? options.items.get(),
+        id: options.id ?? Math.random().toString(36).substring(2, 15),
         element,
         accept: options.accept,
         data: { ...options?.droppableOptions?.data, _unsortable: { ...options, isContainer: true } },
