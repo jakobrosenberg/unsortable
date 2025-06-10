@@ -137,6 +137,7 @@ export class Unsortable {
    * @template T
    * @param {HTMLElement} element
    * @param {Object} options
+   * @param {any=} options.id - The unique identifier for the draggable element.
    * @param {import('@dnd-kit/dom').DraggableInput['type']=} [options.type] - The type of the draggable element.
    * @param {import('@dnd-kit/dom').DroppableInput['accept']=} [options.accept] - The accepted types for the droppable element.
    * @param {import('@dnd-kit/dom').DraggableInput=} options.draggableOptions - Options for the Draggable instance.
@@ -150,9 +151,9 @@ export class Unsortable {
 
     const droppable = new Droppable(
       {
+        id: options.id ?? options.item(),
         accept: options.accept || options.type,
         ...options?.droppableOptions,
-        id: options.item(),
         element,
         data: { ...options, ...options?.droppableOptions?.data, isContainer: false },
       },
@@ -162,7 +163,7 @@ export class Unsortable {
     const draggable = new Draggable(
       {
         type: options.type,
-        id: options.item(),
+        id: options.id ?? options.item(),
         element,
         ...options?.draggableOptions,
         data: { ...options, ...options?.draggableOptions?.data, droppable, isContainer: false },
@@ -188,6 +189,7 @@ export class Unsortable {
    * @template {any[]} T
    * @param {HTMLElement} element
    * @param {Object} options
+   * @param {any=} options.id - The unique identifier for the droppable element.
    * @param {import('@dnd-kit/dom').DroppableInput['accept']=} [options.accept] - The accepted types for the droppable element.
    * @param {import('@dnd-kit/dom').DroppableInput=} options.droppableOptions - Options for the Droppable instance.
    * @param {T | (() => T) | { set: ((T) => void), get: (() => T)}  } options.items - An accessor for the items associated with the droppable.
@@ -200,7 +202,7 @@ export class Unsortable {
     const droppable = new Droppable(
       {
         ...options?.droppableOptions,
-        id: options.items.get(),
+        id: options.id ?? options.items.get(),
         element,
         accept: options.accept,
         data: { ...options, ...options?.droppableOptions?.data, isContainer: true },
