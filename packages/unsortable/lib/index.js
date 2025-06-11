@@ -46,12 +46,12 @@ export class Unsortable {
     this.manager.destroy()
   }
 
-  _applyRegisterWarning(_register) {    
+  _applyRegisterWarning(_register) {
     this.manager.registry.register = (ent) => {
-      const existing = ent.constructor.name === 'Droppable2' && this.manager.registry.droppables.get(ent.id)
-      const isMix = existing && ent.data?._unsortable?.isContainer !== existing?.data?._unsortable?.isContainer
+      const old = ent.constructor.name === 'Droppable2' && this.manager.registry.droppables.get(ent.id)
+      const isMix = old && ent.data?._unsortable?.isContainer !== old?.data?._unsortable?.isContainer
       if (isMix)
-        console.warn('Unsortable: A container and item with the same ID have been registered.', [ent, existing])
+        console.warn(`Unsortable: A container and item with the same ID "${ent.id}" have been registered.`, [ent, old])
       return _register.bind(this.manager.registry)(ent)
     }
   }
