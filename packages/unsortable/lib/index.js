@@ -1,7 +1,7 @@
 import { DragDropManager, Draggable, Droppable } from '@dnd-kit/dom'
 import { getNearestParentElementFromMap, hasValue, move, toArrayAccessors, toItemAccessor } from './utils'
 import { pointerIntersection } from '@dnd-kit/collision'
-import { Collections } from './plugins/collections'
+import { Collections } from './plugins/Collections'
 
 /**
  * @typedef {Object} UnsortableOptions
@@ -135,6 +135,7 @@ export class Unsortable {
    * @param {T | (()=>T) } options.item - An accessor for the item associated with the draggable.
    */
   addDraggable(element, options) {
+    if (!globalThis.window) return
     options.item = toItemAccessor(options.item)
 
     console.debug('unsortable: draggable options', options)
@@ -191,6 +192,7 @@ export class Unsortable {
    * @param {(T, ext:{target: any, source: any}) => void=} [options.setItems] - A function to set the items in the droppable.
    */
   addDroppable(element, options) {
+    if (!globalThis.window) return
     options.items = toArrayAccessors(options.items)
     options.items['set'] = options.setItems || options.items['set']
 
