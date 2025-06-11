@@ -32,7 +32,7 @@ export class Unsortable {
     this.addDroppable = this.addDroppable.bind(this)
     this.addHandle = this.addHandle.bind(this)
     this._onDragOver = this._onDragOver.bind(this)
-
+    this._applyRegisterWarning(this.manager.registry.register)
     if (this.options.autoAttach) this.attach()
   }
 
@@ -44,6 +44,16 @@ export class Unsortable {
   destroy() {
     console.debug('Unsortable: destroying')
     this.manager.destroy()
+  }
+
+  _applyRegisterWarning(_register) {    
+    this.manager.registry.register = (ent) => {
+      const existing = ent.constructor.name === 'Droppable2' && this.manager.registry.droppables.get(ent.id)
+      const isMix = existing && ent.data?._unsortable?.isContainer !== existing?.data?._unsortable?.isContainer
+      if (isMix)
+        console.warn('Unsortable: A container and item with the same ID have been registered.', [ent, existing])
+      return _register.bind(this.manager.registry)(ent)
+    }
   }
 
   _onDragOver(event) {
