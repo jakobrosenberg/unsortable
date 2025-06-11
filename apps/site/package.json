@@ -21,6 +21,9 @@
     "vite": "^6.0.0"
   },
   "dependencies": {
-    "@dnd-kit/abstract": "^0.1.18"
+    "@dnd-kit/abstract": "^0.1.18",
+    "@triplit/client": "^1.0.42",
+    "@triplit/svelte": "^1.0.42",
+    "diff": "^8.0.2"
   }
 }

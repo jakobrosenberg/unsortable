@@ -29,6 +29,9 @@ importers:
       '@triplit/svelte':
         specifier: ^1.0.42
         version: 1.0.42(svelte@5.33.17)(typescript@5.8.3)
+      diff:
+        specifier: ^8.0.2
+        version: 8.0.2
     devDependencies:
       '@roxi/routify':
         specifier: 3.0.0-next.287
@@ -1496,6 +1499,10 @@ packages:
   detect-libc@2.0.4:
     resolution: {integrity: sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==}
     engines: {node: '>=8'}
+
+  diff@8.0.2:
+    resolution: {integrity: sha512-sSuxWU5j5SR9QQji/o2qMvqRNYRDOcBTgsJ/DeCf4iSN4gW+gNMXM7wFIP+fdXZxoNiAnHUTGjCr+TSWXdRDKg==}
+    engines: {node: '>=0.3.1'}
 
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
@@ -4366,6 +4373,8 @@ snapshots:
   detect-indent@7.0.1: {}
 
   detect-libc@2.0.4: {}
+
+  diff@8.0.2: {}
 
   dom-serializer@2.0.0:
     dependencies:
