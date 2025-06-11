@@ -25,9 +25,9 @@
   This demo writes state directly to Triplit's offline DB. The UI is fully derived from live queries.
 </p>
 
-<div class="flex-list" use:addDroppable={{ accept: 'group', items: () => response.results, setItems }}>
+<div class="flex-list flex-wrap" use:addDroppable={{ accept: 'group', items: () => response.results, setItems }}>
   {#each response.results as group (group.id)}
-    <di class="my-card" use:addDraggable={{ item: () => group, id: group.id, type: 'group' }}>
+    <di class="card bg-base-100 shadow-xl p-4 w-50" use:addDraggable={{ item: () => group, id: group.id, type: 'group' }}>
       <h2 class="card-title">{group.name}</h2>
       <div class="shadow-inner bg-base-300 p-4 mt-4">
         <Section {group} {addDraggable} {addDroppable}></Section>
