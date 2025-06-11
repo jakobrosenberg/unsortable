@@ -38,6 +38,7 @@
   "license": "ISC",
   "dependencies": {
     "@dnd-kit/abstract": "^0.1.18",
+    "@dnd-kit/collision": "^0.1.19",
     "@dnd-kit/dom": "^0.1.18"
   },
   "optionalDependencies": {

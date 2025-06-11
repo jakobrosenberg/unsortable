@@ -13,8 +13,8 @@ export default defineConfig({
   plugins: [
     routify({
       render: {
-        // ssg: !!production,
-        // ssr: !!production,
+        ssg: !!production,
+        ssr: !!production,
       },
     }),
     svelte({
