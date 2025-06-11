@@ -17,10 +17,10 @@ const defaultOptions = {
   autoAttach: true,
 }
 
-const containerMap = new WeakMap()
-const itemMap = new WeakMap()
-
 export class Unsortable {
+  containerMap = new WeakMap()
+  itemMap = new WeakMap()
+
   /**
    * @param {UnsortableOptions=} options - Configuration options for Unsortable.
    */
@@ -67,7 +67,8 @@ export class Unsortable {
 
   handleMove(event) {
     console.debug('Unsortable: handling move', event, this.manager)
-    const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
+    const source = getNearestParentElementFromMap(event.operation.source.element, this.containerMap)
+    const target = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
 
     const sourceItem = event.operation.source.data._unsortable.item()
     const sourceItems = source.items.get()
@@ -86,8 +87,8 @@ export class Unsortable {
 
   handleSort(event) {
     console.debug('Unsortable: handling sort', event)
-    const source = getNearestParentElementFromMap(event.operation.source.element, containerMap)
-    const target = getNearestParentElementFromMap(event.operation.target.element, containerMap)
+    const source = getNearestParentElementFromMap(event.operation.source.element, this.containerMap)
+    const target = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
 
     const sourceItem = event.operation.source.data._unsortable.item()
     const sourceItems = source.items.get()
@@ -164,7 +165,7 @@ export class Unsortable {
       this.manager,
     )
 
-    itemMap.set(element, { ...options, draggable, droppable })
+    this.itemMap.set(element, { ...options, draggable, droppable })
 
     return {
       draggable,
@@ -203,7 +204,7 @@ export class Unsortable {
       this.manager,
     )
 
-    containerMap.set(element, options)
+    this.containerMap.set(element, options)
 
     return {
       droppable,
@@ -216,7 +217,7 @@ export class Unsortable {
 
   addHandle(element) {
     requestAnimationFrame(() => {
-      const nearest = getNearestParentElementFromMap(element, itemMap)
+      const nearest = getNearestParentElementFromMap(element, this.itemMap)
       nearest.draggable.handle = element
     })
   }
