@@ -33,16 +33,16 @@ export class Collections extends Plugin {
    */
   disableDroppable(field, droppable) {
     if (droppable?.disabled || droppable === this.disabledDroppables[field]) {
-      console.log('droppable already disabled or unregistered', field, droppable)
+      console.debug('droppable already disabled or unregistered', field, droppable)
       return
     }
     if (this.disabledDroppables[field]) {
-      console.log('restoring previous droppable', this.disabledDroppables[field])
+      console.debug('restoring previous droppable', this.disabledDroppables[field])
       this.disabledDroppables[field].disabled = false
       this.disabledDroppables[field] = null
     }
     if (droppable) {
-      console.log('disabling droppable', field, droppable)
+      console.debug('disabling droppable', field, droppable)
       droppable.disabled = true
       this.disabledDroppables[field] = droppable
     }
