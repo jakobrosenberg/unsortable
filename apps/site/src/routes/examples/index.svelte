@@ -32,7 +32,7 @@
     {/each}
   </div>
 </h3>
-<div class="flex gap-8" use:addDroppable={{ items: () => nodes, setItems: (r) => (nodes = r) }}>
+<div class="flex flex-wrap gap-8 px-10 justify-center" use:addDroppable={{ items: () => nodes, setItems: (r) => (nodes = r) }}>
   {#each nodes as child (child)}
     <a
       animate:flip={{ duration: 150 }}
