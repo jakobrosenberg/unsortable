@@ -4,7 +4,7 @@
 
   const { json } = $props()
   let show = $state(true)
-  const sourceUrl = `https://github.com/jakobrosenberg/unsortable/tree/main/apps/site/${$node.file.path}`
+  const sourceUrl = `https://github.com/jakobrosenberg/unsortable/tree/site/apps/site/${$node.file.path}`
 </script>
 
 {#if show}
