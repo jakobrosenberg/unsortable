@@ -38,7 +38,8 @@ const todos = [
   { id: 'todo-5', id_group: 'group-2', title: 'Todo 5', order: 4 },
 ]
 
-const client = new TriplitClient({ schema, storage: { type: 'indexeddb', name: 'unsortable' } })
+const type = import.meta.env.SSR ? 'memory' : 'indexeddb'
+const client = new TriplitClient({ schema, storage: { type, name: 'unsortable' } })
 
 groups.forEach((group) => client.insert('groups', group))
 todos.forEach((todo) => client.insert('todos', todo))
