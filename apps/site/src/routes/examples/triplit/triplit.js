@@ -1,4 +1,4 @@
-import { TriplitClient, Schema as S, or } from '@triplit/client'
+import { TriplitClient, Schema as S } from '@triplit/client'
 import { useQuery } from '@triplit/svelte'
 
 export const schema = S.Collections({
