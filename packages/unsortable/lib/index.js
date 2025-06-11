@@ -71,8 +71,8 @@ export class Unsortable {
     const target = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
 
     const sourceItem = event.operation.source.data._unsortable.item()
-    const sourceItems = source.items.get()
-    const setSourceItems = source.items.set
+    const sourceItems = source.data._unsortable.items.get()
+    const setSourceItems = source.data._unsortable.items.set
 
     const targetItems = event.operation.target.data._unsortable.items.get()
     const setTargetItems = event.operation.target.data._unsortable.items.set
@@ -91,9 +91,9 @@ export class Unsortable {
     const target = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
 
     const sourceItem = event.operation.source.data._unsortable.item()
-    const sourceItems = source.items.get()
+    const sourceItems = source.data._unsortable.items.get()
     const targetItem = event.operation.target.data._unsortable.item()
-    const targetItems = target.items.get()
+    const targetItems = target.data._unsortable.items.get()
 
     if (sourceItem === targetItem) {
       console.debug('Unsortable: source item is the same as target item, no action taken')
@@ -204,7 +204,7 @@ export class Unsortable {
       this.manager,
     )
 
-    this.containerMap.set(element, options)
+    this.containerMap.set(element, droppable)
 
     return {
       droppable,
