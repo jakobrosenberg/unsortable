@@ -67,12 +67,13 @@ export class Unsortable {
 
   handleMove(event) {
     console.debug('Unsortable: handling move', event, this.manager)
-    const source = getNearestParentElementFromMap(event.operation.source.element, this.containerMap)
-    const target = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
+    const sourceContainer = getNearestParentElementFromMap(event.operation.source.element, this.containerMap)
+    const targetContainer = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
+    const payload = { sourceContainer, targetContainer, event }
 
     const sourceItem = event.operation.source.data._unsortable.item()
-    const sourceItems = source.data._unsortable.items.get()
-    const setSourceItems = source.data._unsortable.items.set
+    const sourceItems = sourceContainer.data._unsortable.items.get()
+    const setSourceItems = sourceContainer.data._unsortable.items.set
 
     const targetItems = event.operation.target.data._unsortable.items.get()
     const setTargetItems = event.operation.target.data._unsortable.items.set
@@ -80,20 +81,20 @@ export class Unsortable {
     const isAlreadyInTargetItems = targetItems.includes(sourceItem)
     if (isAlreadyInTargetItems) return
 
-    // update the source items
-    setSourceItems(sourceItems.filter((item) => item !== sourceItem))
-    setTargetItems([...targetItems, sourceItem])
+    setSourceItems([...sourceItems.filter((i) => i !== sourceItem)], payload)
+    setTargetItems([...targetItems, sourceItem], payload)
   }
 
   handleSort(event) {
     console.debug('Unsortable: handling sort', event)
-    const source = getNearestParentElementFromMap(event.operation.source.element, this.containerMap)
-    const target = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
+    const sourceContainer = getNearestParentElementFromMap(event.operation.source.element, this.containerMap)
+    const targetContainer = getNearestParentElementFromMap(event.operation.target.element, this.containerMap)
+    const payload = { sourceContainer, targetContainer, event }
 
     const sourceItem = event.operation.source.data._unsortable.item()
-    const sourceItems = source.data._unsortable.items.get()
+    const sourceItems = sourceContainer.data._unsortable.items.get()
     const targetItem = event.operation.target.data._unsortable.item()
-    const targetItems = target.data._unsortable.items.get()
+    const targetItems = targetContainer.data._unsortable.items.get()
 
     if (sourceItem === targetItem) {
       console.debug('Unsortable: source item is the same as target item, no action taken')
@@ -107,17 +108,17 @@ export class Unsortable {
     console.debug('Unsortable: oldIndex', oldIndex, 'newIndex', newIndex)
 
     if (isSameList) {
-      source.items.set([...move([...sourceItems], oldIndex, newIndex)])
+      sourceContainer.data._unsortable.items.set([...move([...sourceItems], oldIndex, newIndex)], payload)
       return
     }
 
     // If the items are in different lists, we need to remove the item from the old list and add it to the new list
     // check we're not moving the item into its own child
     if (newIndex !== -1 && !hasValue(sourceItem, targetItems)) {
-      source.items.set(sourceItems.filter((item) => item !== sourceItem))
+      sourceContainer.data._unsortable.items.set([...sourceItems.filter((item) => item !== sourceItem)], payload)
       const _targetItems = [...targetItems]
       _targetItems.splice(newIndex, 0, sourceItem)
-      target.items.set(_targetItems)
+      targetContainer.data._unsortable.items.set(_targetItems, payload)
     }
   }
 
